@@ -13,6 +13,24 @@ FLAGS = \
   #-stdlib=libc++ \
   #-lc++abi \
 
-first:
+all:
+
+bench: vector/bench.cpp
 	clang++ ${FLAGS} -o bench vector/bench.cpp -lbenchmark
+
+bench_run: bench
 	./bench
+
+perf_record: bench
+	perf stat ./bench
+
+perf_stat: bench
+	perf record ./bench
+	perf report
+
+bench2: vector/bench.cpp
+	clang++ ${FLAGS} -fno-omit-frame-pointer -o bench2 vector/bench.cpp -lbenchmark
+
+perf_call_graph: bench2
+	perf record -g ./bench2
+	perf report -g "graph,0.5,caller"

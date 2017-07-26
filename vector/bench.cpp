@@ -24,7 +24,9 @@ static void bench_push_back(benchmark::State& state)
   while (state.KeepRunning()) {
     std::vector<int> v;
     v.reserve(1);
+    benchmark::DoNotOptimize(v.data());
     v.push_back(42);
+    benchmark::ClobberMemory();
   }
 }
 BENCHMARK(bench_push_back);
