@@ -34,3 +34,13 @@ bench2: vector/bench.cpp
 perf_call_graph: bench2
 	perf record -g ./bench2
 	perf report -g "graph,0.5,caller"
+
+bench_fastmod: fastmod/bench.cpp
+	clang++ ${FLAGS} -fno-omit-frame-pointer -o bench_fastmod fastmod/bench.cpp -lbenchmark
+
+run_bench_fastmod: bench_fastmod
+	./bench_fastmod
+
+perf_bench_fastmod: bench_fastmod
+	perf record -g ./bench_fastmod
+	perf report -g "graph,0.5,caller"

@@ -2,3 +2,5 @@ googlebenchmark-src/
 googlebenchmark-build/
 bench
 bench2
+bench_fastmod
+perf.data*
